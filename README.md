@@ -5,7 +5,7 @@
 1. 对外方法定义，接受一个子widget（Text文本）、是否全选变量selectAll、是否复制变量copy，通过这两个变量控制是否显示全选、复制功能
 2. 当前文本是否全选变量selectAllEnable，只有当selectAll=true&&selectAllEnable=true时，显示全选功能
 3. SelectionArea源码：
-     const SelectionArea({
+    > const SelectionArea({
      super.key,
      this.focusNode,
      this.selectionControls,
@@ -16,16 +16,16 @@
      });
    我们需要的参数child必转、onSelectionChanged选中文本回调、contextMenuBuilder 菜单列表
 4. onSelectionChanged源码：
-   final ValueChanged<SelectedContent?>? onSelectionChanged;
-   回调回来一个可空的SelectedContent
+   > final ValueChanged<SelectedContent?>? onSelectionChanged;
+   > 回调回来一个可空的SelectedContent
 5. contextMenuBuilder源码：
-   static Widget _defaultContextMenuBuilder(BuildContext context, SelectableRegionState selectableRegionState) {
+   > static Widget _defaultContextMenuBuilder(BuildContext context, SelectableRegionState selectableRegionState) {
    return AdaptiveTextSelectionToolbar.selectableRegion(
    selectableRegionState: selectableRegionState,
    );
    }
-   （1）、讲一下SelectableRegionState参数：
-   //1
+   >（1）、讲一下SelectableRegionState参数：
+   >//1
    class SelectableRegionState extends State<SelectableRegion> with TextSelectionDelegate implements SelectionRegistrar {
    //2
    late final Map<Type, Action<Intent>> _actions = <Type, Action<Intent>>{
@@ -34,7 +34,7 @@
    ...
    }; 
 
-   @override
+   >@override
    void selectAll([SelectionChangedCause? cause]) {
    _clearSelection();
    _selectable?.dispatchSelectionEvent(const SelectAllSelectionEvent());
@@ -45,7 +45,7 @@
    _updateSelectedContentIfNeeded();
    }
 
-   @Deprecated(
+   >@Deprecated(
    'Use `contextMenuBuilder` instead. '
    'This feature was deprecated after v3.3.0-0.5.pre.',
    )
@@ -55,7 +55,7 @@
    _clearSelection();
    }
 
-   @override
+   >@override
    Widget build(BuildContext context) {
    assert(debugCheckHasOverlay(context));
    Widget result = SelectionContainer(
@@ -85,9 +85,9 @@
    ),
    );
    }
-
    }
-   1. with TextSelectionDelegate
+
+   > 1. with TextSelectionDelegate
       TextSelectionDelegate属于text_input类
       mixin TextSelectionDelegate {
       ...
@@ -96,10 +96,10 @@
       //复制
       void copySelection(SelectionChangedCause cause);
       }
-   2. _SelectAllAction、_CopySelectionAction
+
+   > 2. _SelectAllAction、_CopySelectionAction
       class _SelectAllAction extends _NonOverrideAction<SelectAllTextIntent> {
       _SelectAllAction(this.state);
-
       final SelectableRegionState state;
       //invokeAction回调到SelectableRegionState的selectAll实现全选
       @override
@@ -107,10 +107,8 @@
       state.selectAll(SelectionChangedCause.keyboard);
       }
       }
-
       class _CopySelectionAction extends _NonOverrideAction<CopySelectionTextIntent> {
       _CopySelectionAction(this.state);
-
       final SelectableRegionState state;
       //invokeAction回调到SelectableRegionState的_copy实现复制
       @override
@@ -127,6 +125,7 @@
       }) : children = null;
       buttonItems是ContextMenuButtonItem菜单集合，anchors是 contextMenuAnchors。
 看看最终现实结果吧，源码如下。
+
 ## Tips
 CSDN 
 
