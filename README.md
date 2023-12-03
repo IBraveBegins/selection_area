@@ -1,0 +1,2 @@
+# selection_area
+SelectionArea实现文本全选复制功能
